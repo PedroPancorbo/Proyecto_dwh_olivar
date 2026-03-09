@@ -1,0 +1,33 @@
+# Credenciales y configuración local
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.eggs/
+
+# Datos grandes (no se suben a git)
+data/raw/
+data/staging/
+*.csv
+*.parquet
+
+# dbt
+dbt/target/
+dbt/logs/
+dbt/.user.yml
+
+# Airflow
+airflow/logs/
+airflow/__pycache__/
+
+# IDEs
+.vscode/
+.idea/
+
+# Sistema
+.DS_Store
+Thumbs.db
