@@ -19,6 +19,9 @@ data/staging/
 dbt/target/
 dbt/logs/
 dbt/.user.yml
+dbt_profiles/.user.yml
+olive_dwh/target/
+olive_dwh/logs/
 
 # Airflow
 airflow/logs/
@@ -31,3 +34,9 @@ airflow/__pycache__/
 # Sistema
 .DS_Store
 Thumbs.db
+
+# Claude Code
+.claude/
+
+# Logs del pipeline
+logs/
