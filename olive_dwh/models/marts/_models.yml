@@ -1,0 +1,93 @@
+version: 2
+
+models:
+  - name: dim_campaigns
+    columns:
+      - name: campaign_id
+        tests:
+          - unique
+          - not_null
+      - name: estado
+        tests:
+          - accepted_values:
+              values: ['cerrada', 'activa', 'planificada']
+
+  - name: dim_members
+    columns:
+      - name: member_id
+        tests:
+          - unique
+          - not_null
+      - name: nif
+        tests:
+          - unique
+          - not_null
+      - name: estado
+        tests:
+          - accepted_values:
+              values: ['activo', 'inactivo']
+
+  - name: dim_plots
+    columns:
+      - name: plot_id
+        tests:
+          - unique
+          - not_null
+      - name: member_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_members')
+              field: member_id
+
+  - name: dim_quality
+    columns:
+      - name: quality_grade_id
+        tests:
+          - unique
+          - not_null
+      - name: categoria
+        tests:
+          - accepted_values:
+              values: ['Virgen Extra', 'Virgen', 'Lampante']
+
+  - name: fct_deliveries
+    columns:
+      - name: delivery_id
+        tests:
+          - unique
+          - not_null
+      - name: kg_netos
+        tests:
+          - not_null
+      - name: campaign_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_campaigns')
+              field: campaign_id
+      - name: member_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_members')
+              field: member_id
+
+  - name: fct_settlements
+    columns:
+      - name: settlement_id
+        tests:
+          - unique
+          - not_null
+      - name: campaign_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_campaigns')
+              field: campaign_id
+      - name: member_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_members')
+              field: member_id

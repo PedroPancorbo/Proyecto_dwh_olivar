@@ -1,0 +1,81 @@
+version: 2
+
+models:
+  - name: stg_campaigns
+    columns:
+      - name: campaign_id
+        tests:
+          - unique
+          - not_null
+      - name: estado
+        tests:
+          - accepted_values:
+              values: ['cerrada', 'activa', 'planificada']
+
+  - name: stg_members
+    columns:
+      - name: member_id
+        tests:
+          - unique
+          - not_null
+      - name: nif
+        tests:
+          - unique
+          - not_null
+      - name: estado
+        tests:
+          - accepted_values:
+              values: ['activo', 'inactivo']
+
+  - name: stg_plots
+    columns:
+      - name: plot_id
+        tests:
+          - unique
+          - not_null
+      - name: member_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_members')
+              field: member_id
+
+  - name: stg_quality_grades
+    columns:
+      - name: quality_grade_id
+        tests:
+          - unique
+          - not_null
+      - name: categoria
+        tests:
+          - accepted_values:
+              values: ['Virgen Extra', 'Virgen', 'Lampante']
+
+  - name: stg_deliveries
+    columns:
+      - name: delivery_id
+        tests:
+          - unique
+          - not_null
+      - name: kg_netos
+        tests:
+          - not_null
+      - name: member_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_members')
+              field: member_id
+
+  - name: stg_settlements
+    columns:
+      - name: settlement_id
+        tests:
+          - unique
+          - not_null
+      - name: member_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_members')
+              field: member_id
